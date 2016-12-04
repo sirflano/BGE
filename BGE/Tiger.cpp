@@ -202,7 +202,7 @@ shared_ptr<PhysicsController> Tiger::CreateTiger(glm::vec3 position, float scale
 	glm::vec3 tailStartPos = position + glm::vec3(bodyLength / 2 + tailLength /1.2, bodyRad/2, 0);
 	glm::vec3 tailRelPos = glm::vec3(tailLength, -tailLength , 0);
 
-	shared_ptr<PhysicsController> body = physicsFactory->CreateCylinder(bodyRad, bodyLength, position, bodyRot, true, true);
+	shared_ptr<PhysicsController> body = physicsFactory->CreateCylinder(bodyRad, bodyLength, position, bodyRot, false, true);
 	shared_ptr<PhysicsController> head = physicsFactory->CreateSphere(headRad, headRelPos, bodyRot);
 	shared_ptr<PhysicsController> rightForeShoulder = physicsFactory->CreateCylinder(shoulderRad, scale, rfsRelPos, foreShoulderRot, false, true);
 	shared_ptr<PhysicsController> leftForeShoulder = physicsFactory->CreateCylinder(shoulderRad, scale, lfsRelPos, foreShoulderRot, false, true);

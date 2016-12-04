@@ -14,11 +14,12 @@
 #include "ModelTest.h"
 #include "SteeringGame.h"
 #include "SceneGraphGame.h"
-#include "Lab4.h"
-#include "Lab5.h"
+//#include "Lab4.h"
+//#include "Lab5.h"
 #include "Lab3.h"
-#include "Lab6.h"
-#include "Lab7.h"
+//#include "Lab6.h"
+//#include "Lab7.h"
+#include "Tiger.h"
 #include "Buddha.h"
 #include "Game.h"
 #include <iostream>
@@ -41,9 +42,6 @@
 #include "Utils.h"
 #include "VRGame2.h"
 #include "SDL_syswm.h"
-#include "VRGame1.h"
-#include "Assignment.h"
-#include "GravityGame.h"
 
 using namespace BGE;
 
@@ -52,7 +50,7 @@ int main(int argc, char *argv[])
 	// http://www.youtube.com/watch?v=EEbVHxOkTxw
 	Params::Load("default");
 
-	shared_ptr<Game> game = make_shared<Assignment>();
+	shared_ptr<Game> game = make_shared<Tiger>();
 	game->Run();
 	
 	return 0;

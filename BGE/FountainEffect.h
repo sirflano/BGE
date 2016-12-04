@@ -12,9 +12,9 @@ namespace BGE
 		~FountainEffect(void);
 
 		bool Initialise();
-		void Update();
+		void Update(float timeDelta);
 		void InitParticle(Particle & particle);
-		void UpdateParticle(Particle & particle);
+		void UpdateParticle(float timeDelta, Particle & particle);
 
 		int numParticles;
 	};

@@ -3,7 +3,6 @@
 #include "PhysicsController.h"
 #include <btBulletDynamicsCommon.h>
 #include "PhysicsFactory.h"
-#include "Utils.h"
 
 namespace BGE
 
@@ -18,11 +17,10 @@ namespace BGE
 		~PhysicsCamera(void);
 
 		//bool Initialise();
-		void PhysicsCamera::Update();
+		void PhysicsCamera::Update(float timeDelta);
 
 		void getWorldTransform(btTransform &worldTrans) const;
 		void setWorldTransform(const btTransform &worldTrans);
-		void GravityGun(RayGeom ray, bool isPhys);
 		PhysicsFactory * physicsFactory;
 		float elapsed;
 		float fireRate;

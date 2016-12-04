@@ -13,7 +13,6 @@ Capsule::Capsule(float radius, float height):GameComponent(true)
 	tag = "capsule";
 	
 	transform->scale = glm::vec3(radius, height, radius);
-	initialised = false;
 }
 
 bool Capsule::Initialise()

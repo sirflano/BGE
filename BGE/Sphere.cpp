@@ -31,9 +31,9 @@ bool Sphere::Initialise()
 	}
 }
 
-void Sphere::Update()
+void Sphere::Update(float timeDelta)
 {
-	GameComponent::Update();
+	GameComponent::Update(timeDelta);
 }
 
 Sphere::~Sphere(void)

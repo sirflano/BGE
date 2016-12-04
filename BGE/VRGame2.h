@@ -27,7 +27,7 @@ namespace BGE
 		VRGame2(void);
 		~VRGame2(void);
 		bool Initialise();
-		void Update();
+		void Update(float timeDelta);
 		void Cleanup();
 
 		void FireProjectile(glm::vec3 pos, glm::vec3 look);

@@ -20,7 +20,6 @@
 #include "SDL_syswm.h"
 #include "Params.h"
 
-
 using namespace BGE;
 
 shared_ptr<Game> Game::instance = nullptr;
@@ -110,8 +109,7 @@ bool Game::Run()
 	while (running) {
 		long now = SDL_GetTicks();
 		float ellapsed = ((float)(now - last)) / 1000.0f;
-		Time::deltaTime = ellapsed;
-		Update();
+		Update(ellapsed);
 		PreDraw();
 		Draw();
 		frame++;
@@ -130,9 +128,9 @@ void Game::SetGround(shared_ptr<Ground> ground)
 	Attach(ground);
 }
 
-void Game::Update() {
+void Game::Update(float timeDelta) {
 	// Check for messages
-	fps = 1.0f / Time::deltaTime;
+	fps = 1.0f / timeDelta;
 	PrintText("FPS: " + to_string((long long) fps));
 	soundSystem->Update();
 
@@ -168,9 +166,9 @@ void Game::Update() {
 		exit(0);
 	}
 
-	dynamicsWorld->stepSimulation(Time::deltaTime, 100);
+	dynamicsWorld->stepSimulation(timeDelta, 100);
 
-	GameComponent::Update();
+	GameComponent::Update(timeDelta);
 }
 
 void Game::PreDraw()
@@ -521,8 +519,6 @@ bool BGE::Game::PreInitialise()
 		throw BGE::Exception(msg);
 	}
 
-	cout << glCreateShader << endl;
-
 	/* Turn on double buffering with a 24bit Z buffer.
 	*You may need to change this to 16 or 32 for your system */
 
@@ -555,9 +551,4 @@ bool BGE::Game::PreInitialise()
 	initialised = true;
 
 	return true;
-}
-
-void BGE::Game::setGravity(glm::vec3 gravity)
-{
-	dynamicsWorld->setGravity(GLToBtVector(gravity));
 }

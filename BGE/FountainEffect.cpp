@@ -49,12 +49,12 @@ void FountainEffect::InitParticle(Particle & p)
 	p.size = RandomClamped(10, 50);
 }
 
-void FountainEffect::UpdateParticle(Particle & p)
+void FountainEffect::UpdateParticle(float timeDelta, Particle & p)
 {
 	static glm::vec3 gravity = glm::vec3(0, -9.8, 0);
 	
-	p.velocity += gravity * Time::deltaTime;
-	p.position += p.velocity * Time::deltaTime;
+	p.velocity += gravity * timeDelta;
+	p.position += p.velocity * timeDelta;
 
 	// Fade the alpha as we approach the ground
 	float fadeHeight = 5;
@@ -66,8 +66,8 @@ void FountainEffect::UpdateParticle(Particle & p)
 	}
 }
 
-void FountainEffect::Update()
+void FountainEffect::Update(float timeDelta)
 {
-	ParticleEffect::Update();
+	ParticleEffect::Update(timeDelta);
 }
 

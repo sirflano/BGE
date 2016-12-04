@@ -13,7 +13,7 @@ namespace BGE
 		~ModelTest(void);
 
 		bool Initialise();		
-		void Update();
+		void Update(float timeDelta);
 	};
 }
 

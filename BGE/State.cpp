@@ -44,12 +44,12 @@ void StateMachine::SwicthState(shared_ptr<State> newState)
 	}
 }
 
-void StateMachine::Update()
+void StateMachine::Update(float timeDelta)
 {
 	if (currentState != nullptr)
 	{
 		Game::Instance()->PrintText("State:" + currentState->Description());
-		currentState->Update();
+		currentState->Update(timeDelta);
 	}
-	GameComponent::Update();
+	GameComponent::Update(timeDelta);
 }

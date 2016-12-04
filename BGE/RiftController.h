@@ -16,7 +16,7 @@ namespace BGE
 
 		std::shared_ptr<BGE::XBoxController> xboxController;
 
-		void Update();
+		void Update(float timeDelta);
 		bool Initialise();
 		void DrawToRift();
 		void Cleanup();

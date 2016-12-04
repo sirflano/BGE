@@ -1,16 +1,13 @@
 #pragma once
 #include "GameComponent.h"
+#include "Game.h"
 
 namespace BGE
 {
-	class GravityController :public GameComponent
+	class GravityController :
+		public GameComponent
 	{
 	public:
-		GravityController();
-		~GravityController();
-
-		glm::vec3 gravity;
-
-		void Update();
 	};
+
 }

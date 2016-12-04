@@ -21,7 +21,7 @@ namespace BGE
 		shared_ptr<FountainEffect> buddhaFountain1;
 		float elapsed;
 		bool Initialise();
-		void Update();
+		void Update(float timeDelta);
 		vector<shared_ptr<FountainEffect>> fountains;
 		float fountainTheta;
 	};

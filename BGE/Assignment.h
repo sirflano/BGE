@@ -21,5 +21,6 @@ namespace BGE
 		shared_ptr<PhysicsController> bird;
 		shared_ptr<PhysicsController> CreateSeagull(glm::vec3 position, float scale = 5);
 		shared_ptr<PhysicsController> CreateSeagull2(glm::vec3 position);
+		shared_ptr<PhysicsController> CreateTiger(glm::vec3 position, float scale = 5);
 	};
 }

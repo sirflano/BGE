@@ -39,7 +39,7 @@ namespace BGE
 		GameComponent(bool hasTransform = false);
 		virtual ~GameComponent();
 		virtual bool Initialise();
-		virtual void Update();
+		virtual void Update(float timeDelta);
 		virtual void PreDraw();
 		virtual void Draw();
 		virtual void PostDraw();

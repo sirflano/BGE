@@ -13,7 +13,7 @@ namespace BGE
 
 		virtual string Description() = 0;
 		virtual void Initialise() = 0;
-		virtual void Update();
+		virtual void Update(float timeDelta);
 
 		shared_ptr<SteeringController> leaderController;
 	};

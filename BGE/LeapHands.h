@@ -17,7 +17,7 @@ namespace BGE
 		~LeapHands();
 
 		virtual bool Initialise();
-		virtual void Update();
+		virtual void Update(float timeDelta);
 		virtual void Draw();
 		virtual void Cleanup();
 
@@ -44,10 +44,7 @@ namespace BGE
 		virtual void onDeviceChange(const Controller&);
 		virtual void onServiceConnect(const Controller&);
 		virtual void onServiceDisconnect(const Controller&);
-		void TransformHand();
+		void TransformHand(float timeDelta);
 		glm::vec3 TransformPointRelativeToCamera(glm::vec3 pos);
-
-		bool pinch = false;
-		float pinchDist = 0;
 	};
 }

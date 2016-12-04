@@ -1,6 +1,5 @@
 #include "SceneGraphGame.h"
 #include "Sphere.h"
-#include "Utils.h"
 
 using namespace BGE;
 
@@ -33,6 +32,9 @@ bool SceneGraphGame::Initialise()
 {	
 	dynamicsWorld->setGravity(btVector3(0,-9,0));
 	
+	camera->transform->position = glm::vec3(-10,20,20);
+	camera->transform->look = glm::vec3(0, 0, 1); 
+
 	physicsFactory->CreateCameraPhysics();
 	physicsFactory->CreateGroundPhysics();
 
@@ -41,46 +43,21 @@ bool SceneGraphGame::Initialise()
 	return Game::Initialise();
 }
 
-void SceneGraphGame::Update()
+void SceneGraphGame::Update(float timeDelta)
 {
 	if (selfExample != nullptr)
 	{
-		selfExample->transform->Yaw(Time::deltaTime * speed * speed);
+		selfExample->transform->Yaw(timeDelta * speed * speed);
 	}
 	if (station != nullptr)
 	{
-		station->transform->Yaw(Time::deltaTime * speed * speed);
+		station->transform->Yaw(timeDelta * speed * speed);
 	}
-	Game::Update();
+	Game::Update(timeDelta);
 }
 
 void SceneGraphGame::CreateScene()
 {
-	// Cylinder stuff for Darren
-	shared_ptr<PhysicsController> cycC = physicsFactory->CreateCylinder(10, 2, glm::vec3(0, 20, 0), glm::quat());
-	shared_ptr<GameComponent> c = make_shared<Box>(10, 10, 10);
-	c->transform->position = glm::vec3(0, 10, 0);
-	cycC->Attach(c);
-
-
-	setGravity(glm::vec3(0, 0, 0));
-
-
-	// Fixed joint with rotation for Darren
-	shared_ptr<PhysicsController> b1 = physicsFactory->CreateBox(10, 1, 20, glm::vec3(0, 0, 0), glm::quat());
-	glm::quat q = glm::angleAxis(30.0f, glm::vec3(0, 1, 0));
-	shared_ptr<PhysicsController> b2 = physicsFactory->CreateBox(10, 10, 1, glm::vec3(0, 10, 0), q);
-	btTransform t1, t2;
-	t1.setIdentity();
-	t2.setIdentity();
-	t1.setOrigin(btVector3(0, 1, 0));
-	t2.setRotation(GLToBtQuat(glm::angleAxis(-30.0f, glm::vec3(0, 1, 0)))); // Not sure but this needs to be a minus angle
-	t2.setOrigin(btVector3(0, -6, 0));
-	btFixedConstraint * fixed = new btFixedConstraint(* b1->rigidBody, * b2->rigidBody, t1, t2);
-	dynamicsWorld->addConstraint(fixed);
-	// End
-
-	Attach(make_shared<SnowEffect>(true));
 	float componentCount = 11.0f;
 	float current = 0.0f;
 	shared_ptr<GameComponent> partFollower = make_shared<GameComponent>(true);
@@ -93,8 +70,6 @@ void SceneGraphGame::CreateScene()
 	selfExample->Attach(make_shared<VectorDrawer>(glm::vec3(5, 5, 5)));
 	selfExample->transform->position = NextPosition(current++, componentCount);
 	Attach(selfExample);	
-
-
 	station = make_shared<GameComponent>(true);
 	station->transform->ambient = glm::vec3(0.2f, 0.2, 0.2f);
 	station->transform->specular = glm::vec3(1.2f, 1.2f, 1.2f);

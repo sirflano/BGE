@@ -4,19 +4,15 @@
 
 using namespace std;
 
-namespace BGE
-{
-	class Lab3 :
-		public Game
-	{
-	public:
-		Lab3(void);
+namespace BGE{
+
+	class Lab8 : public Game{
 
 		shared_ptr<GameComponent> ship1;
 		shared_ptr<GameComponent> ship2;
-		float elapsed;
-		bool Initialise();
-		void Update(float timeDelta);
+
+	public: Lab8(void);
+			bool Initialise();
+			void Update(float timeDelta);
 	};
 }
-

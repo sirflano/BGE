@@ -40,15 +40,6 @@ namespace BGE
 		float radius;
 	};
 
-	struct Time
-	{
-	public:
-		Time();
-		~Time();
-	public:
-		static float deltaTime;
-	};
-
 	FMOD_VECTOR GLToFMODVector(glm::vec3 v);
 #ifdef _WIN32
 	glm::quat OVRToGLQuat(OVR::Quatf q);

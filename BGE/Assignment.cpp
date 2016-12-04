@@ -60,7 +60,8 @@ bool Assignment::Initialise()
 	}
 	*/
 
-	shared_ptr<PhysicsController> bird = CreateSeagull(glm::vec3(-10, 30, 0), 5);
+	//shared_ptr<PhysicsController> bird = CreateSeagull(glm::vec3(-10, 30, 0), 5);
+	shared_ptr<PhysicsController> taiga = CreateTiger(glm::vec3(10, 30, 0), 5);
 	//CreateBird(glm::vec3(-10, 20, 0));
 
 
@@ -85,6 +86,24 @@ void BGE::Assignment::Update()
 void BGE::Assignment::Cleanup()
 {
 	Game::Cleanup();
+}
+
+shared_ptr<PhysicsController> Assignment::CreateTiger(glm::vec3 position, float scale) {
+	glm::quat bodyRot = glm::quat(1, 0, 0, 1);
+	glm::quat shoulderRot = glm::quat(-0.1, 0, 0, 1);
+	glm::quat foreLimbRot = glm::quat(0.3, 0, 0, 1);
+
+	glm::vec3 rfsRelPos = position + glm::vec3(-scale + scale / 3, -scale / 5, scale / 2 + scale / 4);
+	glm::vec3 lfsRelPos = position + glm::vec3(-scale + scale / 3, -scale / 5, -scale / 2 - scale / 4);
+	glm::vec3 rflRelPos = position + glm::vec3(-scale, -scale*1.3, scale / 2 + scale / 4);
+	shared_ptr<PhysicsController> body = physicsFactory->CreateCylinder(scale/2, scale*2, position, bodyRot, false, true);
+	shared_ptr<PhysicsController> head = physicsFactory->CreateSphere(scale/2, position + glm::vec3(-scale-scale/2, scale/2, 0), bodyRot);
+	shared_ptr<PhysicsController> rightForeShoulder = physicsFactory->CreateCylinder(scale / 4, scale, rfsRelPos, shoulderRot, false, true);
+	shared_ptr<PhysicsController> leftForeShoulder = physicsFactory->CreateCylinder(scale / 4, scale, lfsRelPos, shoulderRot, false, true);
+	shared_ptr<PhysicsController> rightForeLimb = physicsFactory->CreateCylinder(scale / 6, scale, rflRelPos, foreLimbRot, false, true);
+
+
+	return body;
 }
 
 shared_ptr<PhysicsController> Assignment::CreateSeagull(glm::vec3 position, float scale)

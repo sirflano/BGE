@@ -73,55 +73,53 @@ void Steerable3DController::Draw()
 }
 
 
-void Steerable3DController::Update()
+void Steerable3DController::Update(float timeDelta)
 {
 	const Uint8 * keyState = Game::Instance()->GetKeyState();
 
 	float scale = 10000.0f;
-	if (keyState[SDL_SCANCODE_RETURN])
+	if (keyState[SDL_SCANCODE_SPACE])
     {
-        AddForce(transform->look * scale * Time::deltaTime);
+        AddForce(transform->look * scale * timeDelta);
     }
 
     // Yaw
 	if (keyState[SDL_SCANCODE_J])
     {
-		AddTorque(transform->up * scale * Time::deltaTime);
+		AddTorque(transform->up * scale * timeDelta);
     }
     if (keyState[SDL_SCANCODE_L])
     {
-        AddTorque(- transform->up * scale * Time::deltaTime);
+        AddTorque(- transform->up * scale * timeDelta);
     }
     // End of Yaw
 
     //Pitch
     if (keyState[SDL_SCANCODE_I])
     {
-        AddTorque(transform->right * scale * Time::deltaTime);
+        AddTorque(transform->right * scale * timeDelta);
     }
     if (keyState[SDL_SCANCODE_K])
     {
-        AddTorque(- transform->right * scale * Time::deltaTime);
+        AddTorque(- transform->right * scale * timeDelta);
     }
     // End of Pitch
 
 	// Roll
     if (keyState[SDL_SCANCODE_Y])
     {
-        AddTorque(transform->look * scale * Time::deltaTime);
+        AddTorque(transform->look * scale * timeDelta);
     }
 
     if (keyState[SDL_SCANCODE_H])
     {
-        AddTorque(- transform->look * scale * Time::deltaTime);
+        AddTorque(- transform->look * scale * timeDelta);
     }
 
     // Do the Newtonian integration
     acceleration = force / mass;
-    velocity += acceleration * Time::deltaTime;
-    transform->position += velocity * Time::deltaTime;
-
-	Game::Instance()->PrintVector("Velocity: ", velocity);
+    transform->velocity += acceleration * timeDelta;
+    transform->position += velocity * timeDelta;
 	
 	// Normalise the velocity into the look
 	// Probably not necessary as we recalculate these anyway later
@@ -134,17 +132,11 @@ void Steerable3DController::Update()
 
     // Do the Hamiltonian integration
 	angularAcceleration = torque * glm::inverse(inertialTensor);
-    angularVelocity = angularVelocity + angularAcceleration * Time::deltaTime;
-
-	if (glm::length(angularVelocity) > 0.0001f)
-	{
-		angularVelocity *= 0.9f;
-	}
-
+    angularVelocity = angularVelocity + angularAcceleration * timeDelta;
 
     glm::quat w = glm::quat(0, angularVelocity.x, angularVelocity.y, angularVelocity.z);
 
-	transform->orientation = transform->orientation + ((w * (Time::deltaTime / 2.0f)) * transform->orientation);
+	transform->orientation = transform->orientation + ((w * (timeDelta / 2.0f)) * transform->orientation);
 	transform->orientation = glm::normalize(transform->orientation);
     
 	// Reset the accumulators
@@ -155,5 +147,5 @@ void Steerable3DController::Update()
 	transform->up = RotateVector(Transform::basisUp, transform->orientation);
 	transform->right = RotateVector(Transform::basisRight, transform->orientation);
 
-	GameComponent::Update();
+	GameComponent::Update(timeDelta);
 }

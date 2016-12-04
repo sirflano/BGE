@@ -46,7 +46,7 @@ void SteeringGame::Reset()
 	}
 }
 
-void SteeringGame::Update()
+void SteeringGame::Update(float timeDelta)
 {
 	static float multiplier = 1.0f;
 
@@ -85,22 +85,22 @@ void SteeringGame::Update()
 			elapsed = 0.0f;
 		}
 	}
-	elapsed += Time::deltaTime;
+	elapsed += timeDelta;
 	
 	PrintText("Press O to decrease speed");
 	PrintText("Press P to increase speed");
 
 	if (keyState[SDL_SCANCODE_O])
 	{
-		multiplier -= Time::deltaTime;
+		multiplier -= timeDelta;
 	}
 	if (keyState[SDL_SCANCODE_P])
 	{
-		multiplier += Time::deltaTime;
+		multiplier += timeDelta;
 	}
-	Time::deltaTime *= multiplier;
-	scenarios[currentScenario]->Update();
-	Game::Update();
+	scenarios[currentScenario]->Update(timeDelta * multiplier);
+
+	Game::Update(timeDelta  * multiplier);
 
 	if (camFollowing)
 	{

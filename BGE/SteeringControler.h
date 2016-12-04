@@ -3,7 +3,6 @@
 #include <vector>
 #include <iostream>
 #include "Route.h"
-#include "Utils.h"
 
 using namespace std;
 
@@ -51,7 +50,7 @@ namespace BGE
 		vector<glm::vec3> feelers;
 
 		// From Game Component
-		void Update();
+		void Update(float timeDelta);
 		bool Initialise();
 
 		// Support stuff
@@ -73,6 +72,7 @@ namespace BGE
 		glm::vec3 velocity;
 		glm::vec3 randomWalkTarget;
 		glm::vec3 offset;
+		float timeDelta;
 
 		shared_ptr<Route> route;
 
